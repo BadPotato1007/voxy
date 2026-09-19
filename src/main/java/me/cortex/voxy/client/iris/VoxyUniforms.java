@@ -3,6 +3,7 @@ package me.cortex.voxy.client.iris;
 import me.cortex.voxy.client.config.VoxyConfig;
 import me.cortex.voxy.client.core.IVoxyRenderSystemHolder;
 import net.irisshaders.iris.gl.uniform.UniformHolder;
+import net.irisshaders.iris.helpers.MatrixUtils;
 import org.joml.Matrix4f;
 import org.joml.Matrix4fc;
 
@@ -18,7 +19,7 @@ public class VoxyUniforms {
         if (vrs == null) {
             return new Matrix4f();
         }
-        return new Matrix4f(vrs.getViewport().MVP);
+        return MatrixUtils.undoRevZ(new Matrix4f(vrs.getViewport().MVP));
     }
 
     public static Matrix4f getModelView() {//This is 1 frame late ;-; cries, since the update occurs _before_ the voxy render pipeline
@@ -38,7 +39,7 @@ public class VoxyUniforms {
         if (mat == null) {
             return new Matrix4f();
         }
-        return new Matrix4f(mat);
+        return MatrixUtils.undoRevZ(new Matrix4f(mat));
     }
 
     public static void addUniforms(UniformHolder uniforms) {

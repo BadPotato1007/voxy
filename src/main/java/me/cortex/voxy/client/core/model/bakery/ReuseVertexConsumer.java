@@ -83,6 +83,11 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     }
 
     @Override
+    public ReuseVertexConsumer setUv3(float u, float v) {
+        return this;
+    }
+
+    @Override
     public ReuseVertexConsumer setNormal(float x, float y, float z) {
         return this;
     }
@@ -104,8 +109,7 @@ public final class ReuseVertexConsumer implements VertexConsumer {
     }
 
     public ReuseVertexConsumer quad(BakedQuad quad, int metadata) {
-        this.anyShaded |= quad.materialInfo().shade();
-        this.anyDarkendTex |= quad.materialInfo().sprite().contents().mipmapStrategy == MipmapStrategy.DARK_CUTOUT;
+        this.anyShaded |= ((net.caffeinemc.mods.sodium.client.model.quad.BakedQuadView) (Object) quad).hasShade();        this.anyDarkendTex |= quad.materialInfo().sprite().contents().mipmapStrategy == MipmapStrategy.DARK_CUTOUT;
         this.ensureCanPut();
         for (int i = 0; i < 4; i++) {
             var pos = quad.position(i);

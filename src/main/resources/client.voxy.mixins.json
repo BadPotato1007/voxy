@@ -1,7 +1,7 @@
 {
   "required": true,
   "package": "me.cortex.voxy.client.mixin",
-  "compatibilityLevel": "JAVA_17",
+  "compatibilityLevel": "JAVA_25",
   "client": [
     "flashback.MixinFlashbackMeta",
     "flashback.MixinFlashbackRecorder",
@@ -11,8 +11,8 @@
     "iris.MixinIrisRenderingPipeline",
     "iris.MixinIrisSamplers",
     "iris.MixinLevelRenderer",
-    "iris.MixinMatrixUniforms",
     "iris.MixinProgramSet",
+    "iris.MixinMatrixUniforms",
     "iris.MixinShaderPackSourceNames",
     "iris.MixinStandardMacros",
     "minecraft.MixinClientChunkCache",
@@ -28,7 +28,6 @@
     "minecraft.util.MixinClientCommonPacketListenerImpl",
     "minecraft.util.MixinGlDebug",
     "minecraft.util.MixinGPUSelect",
-    "nvidium.MixinRenderPipeline",
     "sodium.AccessorChunkTracker",
     "sodium.AccessorSodiumWorldRenderer",
     "sodium.MixinChunkJobQueue",
