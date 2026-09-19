@@ -59,11 +59,17 @@ public class IrisVoxyRenderPipelineData {
     public final boolean skipShaderDepthHackFix;
     public final boolean useDynamicFarPlane;
 
+    //Iris rewrites gl_FragCoord.z -> 1.0-gl_FragCoord.z for the shaders it compiles (DepthTransformer).
+    //Voxy compiles the pack's patch itself and now renders reverse-Z, so do the same here.
+    private static String voxy$conventionalDepth(String src) {
+        return src == null ? null : src.replace("gl_FragCoord.z", "(1.0-gl_FragCoord.z)");
+    }
+
     private IrisVoxyRenderPipelineData(IrisShaderPatch patch, int[] opaqueDrawTargets, int[] translucentDrawTargets, StructLayout uniformSet, Runnable blendingSetup, ImageSet imageSet, SSBOSet ssboSet) {
         this.opaqueDrawTargets = opaqueDrawTargets;
         this.translucentDrawTargets = translucentDrawTargets;
-        this.opaquePatch = patch.getPatchOpaqueSource();
-        this.translucentPatch = patch.getPatchTranslucentSource();
+        this.opaquePatch = voxy$conventionalDepth(patch.getPatchOpaqueSource());
+        this.translucentPatch = voxy$conventionalDepth(patch.getPatchTranslucentSource());
         this.uniforms = uniformSet;
         this.blendingSetup = blendingSetup;
         this.imageSet = imageSet;
